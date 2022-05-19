@@ -54,9 +54,5 @@ public class Movimiento {
     }
   }
   
-  //
-  public boolean noSeDepositoEnLaFecha(LocalDate fecha) {
-	 return !esDeposito && fecha.equals(fecha);
-  }
-  //
+
 }

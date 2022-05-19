@@ -68,13 +68,13 @@ public class Cuenta {
     movimientos.add(movimiento);
   }
 //code smell
-  public List<Movimiento> movimientosFecha(LocalDate fecha){
+  public List<Movimiento> extraccionDeLaFecha(LocalDate fecha){
 	  return getMovimientos().stream()
-		        .filter(movimiento -> movimiento.noSeDepositoEnLaFecha(fecha)).collect(Collectors.toList());
+		        .filter(movimiento -> movimiento.fueExtraido(fecha)).collect(Collectors.toList());
 	  
   }
   public double getMontoExtraidoA(LocalDate fecha) {
-    return this.movimientosFecha(fecha).stream() .mapToDouble(Movimiento::getMonto).sum();
+    return this.extraccionDeLaFecha(fecha).stream() .mapToDouble(Movimiento::getMonto).sum();
   }
   //
 
