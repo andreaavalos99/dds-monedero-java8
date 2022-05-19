@@ -1,6 +1,7 @@
 package dds.monedero.model;
 
 import java.time.LocalDate;
+import java.util.stream.Collectors;
 
 public class Movimiento {
   private LocalDate fecha;
@@ -55,5 +56,9 @@ public class Movimiento {
     } else {
       return cuenta.getSaldo() - getMonto();
     }
+  }
+  
+  public boolean seDepositoEnLaFehca(LocalDate fecha) {
+	 return !this.isDeposito() && this.getFecha().equals(fecha);
   }
 }
