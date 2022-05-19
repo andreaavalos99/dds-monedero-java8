@@ -29,7 +29,7 @@ public class Cuenta {
   
   //
   public long cantidadExtracciones() {
-	  return getMovimientos().stream().filter(movimiento -> movimiento.isDeposito()).count();
+	  return getMovimientos().stream().filter(movimiento -> !movimiento.getEsDeposito()).count();
   }
   
   public void poner(double cuanto) {
