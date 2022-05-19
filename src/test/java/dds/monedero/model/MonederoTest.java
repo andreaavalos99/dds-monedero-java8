@@ -35,10 +35,10 @@ public class MonederoTest {
     cuenta.poner(1500);
     cuenta.poner(456);
     cuenta.poner(1900);
-    assertEquals(cuenta.getSaldo(), aux + 1500 + 456 +1900);
+    assertEquals(cuenta.getSaldo(), aux + 1500 + 456 + 1900);
   }
 
-
+  //posible code
   @Test
   void MasDeTresDepositos() {
     assertThrows(MaximaCantidadDepositosException.class, () -> {
@@ -71,13 +71,4 @@ public class MonederoTest {
     assertThrows(MontoNegativoException.class, () -> cuenta.sacar(-500));
   }
 
-  @Test
-  public void sds() {
-    assertThrows(MontoNegativoException.class, () -> cuenta.sacar(-500));
-  }
-  
-  @Test
-  public void sd() {
-    assertThrows(MontoNegativoException.class, () -> cuenta.sacar(-500));
-  }
 }

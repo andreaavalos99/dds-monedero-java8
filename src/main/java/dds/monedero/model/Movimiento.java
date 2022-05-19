@@ -58,7 +58,9 @@ public class Movimiento {
     }
   }
   
-  public boolean seDepositoEnLaFehca(LocalDate fecha) {
-	 return !this.isDeposito() && this.getFecha().equals(fecha);
+  //
+  public boolean noSeDepositoEnLaFecha(LocalDate fecha) {
+	 return !esDeposito && fecha.equals(fecha);
   }
+  //
 }

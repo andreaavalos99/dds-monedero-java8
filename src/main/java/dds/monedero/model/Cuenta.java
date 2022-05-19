@@ -26,19 +26,28 @@ public class Cuenta {
   public void setMovimientos(List<Movimiento> movimientos) {
     this.movimientos = movimientos;
   }
-
+  
+  //
+  public long cantidadExtracciones() {
+	  return getMovimientos().stream().filter(movimiento -> movimiento.isDeposito()).count();
+  }
+  
   public void poner(double cuanto) {
     if (cuanto <= 0) {
       throw new MontoNegativoException(cuanto + ": el monto a ingresar debe ser un valor positivo");
     }
 
-    if (getMovimientos().stream().filter(movimiento -> movimiento.isDeposito()).count() >= 3) {
+    if (this.cantidadExtracciones() >= 3) {
       throw new MaximaCantidadDepositosException("Ya excedio los " + 3 + " depositos diarios");
     }
 
     new Movimiento(LocalDate.now(), cuanto, true).agregateA(this);
   }
-
+  //
+  
+  double montoExtraidoHoy = getMontoExtraidoA(LocalDate.now());
+  double limite = 1000 - montoExtraidoHoy;
+  
   public void sacar(double cuanto) {
     if (cuanto <= 0) {
       throw new MontoNegativoException(cuanto + ": el monto a ingresar debe ser un valor positivo");
@@ -46,8 +55,7 @@ public class Cuenta {
     if (getSaldo() - cuanto < 0) {
       throw new SaldoMenorException("No puede sacar mas de " + getSaldo() + " $");
     }
-    double montoExtraidoHoy = getMontoExtraidoA(LocalDate.now());
-    double limite = 1000 - montoExtraidoHoy;
+    
     if (cuanto > limite) {
       throw new MaximoExtraccionDiarioException("No puede extraer mas de $ " + 1000
           + " diarios, límite: " + limite);
@@ -62,12 +70,13 @@ public class Cuenta {
 //code smell
   public List<Movimiento> movimientosFecha(LocalDate fecha){
 	  return getMovimientos().stream()
-		        .filter(movimiento -> movimiento.seDepositoEnLaFehca(fecha)).collect(Collectors.toList());
+		        .filter(movimiento -> movimiento.noSeDepositoEnLaFecha(fecha)).collect(Collectors.toList());
 	  
   }
   public double getMontoExtraidoA(LocalDate fecha) {
     return this.movimientosFecha(fecha).stream() .mapToDouble(Movimiento::getMonto).sum();
   }
+  //
 
   public List<Movimiento> getMovimientos() {
     return movimientos;
