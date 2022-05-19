@@ -32,20 +32,17 @@ public class Movimiento {
     return esDeposito && esDeLaFecha(fecha);
   }
 
-  public boolean fueExtraido(LocalDate fecha) {
-    return !esDeposito && esDeLaFecha(fecha);
-  }
-
   public boolean esDeLaFecha(LocalDate fecha) {
     return this.fecha.equals(fecha);
   }
-
-
+  
+//Feature Envy 
   public void agregateA(Cuenta cuenta) {
     cuenta.setSaldo(calcularValor(cuenta));
     cuenta.agregarMovimiento(fecha, monto, esDeposito);
   }
-
+  
+//Feature Envy nose como arreglarlo
   public double calcularValor(Cuenta cuenta) {
     if (esDeposito) {
       return cuenta.getSaldo() + getMonto();

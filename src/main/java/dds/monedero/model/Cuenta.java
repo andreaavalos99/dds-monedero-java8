@@ -70,7 +70,7 @@ public class Cuenta {
 //code smell
   public List<Movimiento> extraccionDeLaFecha(LocalDate fecha){
 	  return getMovimientos().stream()
-		        .filter(movimiento -> movimiento.fueExtraido(fecha)).collect(Collectors.toList());
+		        .filter(movimiento -> !movimiento.fueDepositado(fecha)).collect(Collectors.toList());
 	  
   }
   public double getMontoExtraidoA(LocalDate fecha) {
